@@ -4,5 +4,24 @@
   "description": "A library for event-driven data collection with Google Analytics for Firefox Test Pilot.",
   "main": "index.js",
   "repository": "https://github.com/mozilla/testpilot-ga",
-  "license": "MPL-2.0"
+  "license": "MPL-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
+    "prettier": "^1.5.3"
+  },
+  "scripts": {
+    "build": "mkdir -p dist && babel src/index.js --out-file dist/index.js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  }
 }
