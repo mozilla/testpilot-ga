@@ -16,7 +16,6 @@ export default class TestPilotGA {
   static requiredOptions = ["an", "ds", "tid"];
 
   constructor(options) {
-    console.log("debug", options, options.debug || false);
     this.debug = options.debug || false;
     this.setOptions(options);
     this.validateOptions();
@@ -108,7 +107,6 @@ export default class TestPilotGA {
     const eventParams = Object.assign({ ec, ea }, params);
     const requestBody = this.requestBody(eventParams);
     const requestUri = this.requestURI();
-    console.log(requestUri, requestBody);
     return new Promise((resolve, reject) => {
       var req = new window.XMLHttpRequest();
       req.open("POST", requestUri);
