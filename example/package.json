@@ -12,6 +12,6 @@
     "webpack": "^2.3.2"
   },
   "dependencies": {
-    "testpilot-ga": "^0.2.0"
+    "testpilot-ga": "^0.2.1"
   }
 }

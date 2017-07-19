@@ -1,6 +1,6 @@
 {
   "name": "testpilot-ga",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A library for event-driven data collection with Google Analytics for Firefox Test Pilot.",
   "main": "dist/index.js",
   "files": "dist",
@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "mkdir -p dist && babel src/TestPilotGA.js --out-file dist/index.js",
-    "precommit": "lint-staged && npm run build"
+    "precommit": "lint-staged && npm run build",
+    "publish": "npm run build && npm publish"
   },
   "lint-staged": {
     "*.js": [
