@@ -38,7 +38,7 @@ A string representing the [event category](https://developers.google.com/analyti
 
 ### `ea`
 
-A string representing the [event category](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ec).
+A string representing the [event action](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ea).
 
 ### `eventParams`
 
