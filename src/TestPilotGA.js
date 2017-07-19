@@ -23,7 +23,6 @@ export default class TestPilotGA {
   }
 
   setOptions(options) {
-    const x = 1;
     const allOptions = Object.assign({}, TestPilotGA.defaultOptions, options);
     Object.entries(allOptions).forEach(([key, value]) => (this[key] = value));
   }

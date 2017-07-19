@@ -1,0 +1,17 @@
+env:
+  browser: true
+  es6: true
+  node: true
+
+extends:
+  - eslint:recommended
+
+parser: babel-eslint
+
+root: true
+
+rules:
+  eqeqeq: error
+  no-console: warn
+  no-var: error
+  prefer-const: error
