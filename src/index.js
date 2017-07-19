@@ -6,6 +6,7 @@ export default class TestPilotGA {
     aiid: "testpilot",
     aip: "1",
     av: null,
+    ds: "addon",
     t: "event",
     uid: null,
     v: "1",
@@ -22,24 +23,18 @@ export default class TestPilotGA {
   }
 
   setOptions(options) {
-    const allOptions = Object.assign(
-      {},
-      TestPilotMetrics.defaultOptions,
-      options
-    );
+    const x = 1;
+    const allOptions = Object.assign({}, TestPilotGA.defaultOptions, options);
     Object.entries(allOptions).forEach(([key, value]) => (this[key] = value));
   }
 
   validateOptions(options) {
-    const missingOptions = TestPilotMetrics.requiredOptions.reduce(
-      (accum, opt) => {
-        if (!this.hasOwnProperty(opt)) {
-          accum.push(opt);
-        }
-        return accum;
-      },
-      []
-    );
+    const missingOptions = TestPilotGA.requiredOptions.reduce((accum, opt) => {
+      if (!this.hasOwnProperty(opt)) {
+        accum.push(opt);
+      }
+      return accum;
+    }, []);
     if (missingOptions.length) {
       console.error(`Missing required options: ${missingOptions.join(", ")}`);
     }
