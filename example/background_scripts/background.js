@@ -1,4 +1,4 @@
-const TestPilotGA = require("testpilot-ga").default;
+const TestPilotGA = require("testpilot-ga");
 const manifest = require("../addon/manifest.json");
 
 const GA_PROPERTY_IDS = {
