@@ -103,19 +103,23 @@ export default class TestPilotGA {
     const requestBody = this.requestBody(eventParams);
     const requestUri = this.requestURI();
     return new Promise((resolve, reject) => {
-      var req = new window.XMLHttpRequest();
-      req.open("POST", requestUri);
-      req.onload = function() {
-        if (req.status < 400) {
-          resolve(req);
-        } else {
-          reject(req, Error(req.statusText));
-        }
-      };
-      req.onerror = function() {
-        reject(req, Error("Network Error"));
-      };
-      req.send(requestBody);
+      if (navigator.doNotTrack === "1") {
+        reject(null, Error("Metrics aborted due to DNT."));
+      } else {
+        const req = new window.XMLHttpRequest();
+        req.open("POST", requestUri);
+        req.onload = function() {
+          if (req.status < 400) {
+            resolve(req);
+          } else {
+            reject(req, Error(req.statusText));
+          }
+        };
+        req.onerror = function() {
+          reject(req, Error("Network Error"));
+        };
+        req.send(requestBody);
+      }
     });
   }
 }

@@ -2,7 +2,7 @@
 
 [![testpilot-ga on npm](https://img.shields.io/npm/v/testpilot-ga.svg)](https://www.npmjs.com/package/testpilot-ga)
 
-A library for event-driven data collection with Google Analytics for [Firefox Test Pilot](https://testpilot.firefox.com) experiments. Aims to follow [Test Pilot standards](https://github.com/mozilla/testpilot/blob/master/docs/experiments/ga.md) for reporting
+A library for event-driven data collection with Google Analytics for [Firefox Test Pilot](https://testpilot.firefox.com) experiments. Aims to follow [Test Pilot standards](https://github.com/mozilla/testpilot/blob/master/docs/experiments/ga.md) for reporting, automatically respects Do Not Track settings.
 
 ## Table of contents
 
