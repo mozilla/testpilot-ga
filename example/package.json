@@ -1,0 +1,17 @@
+{
+  "name": "testpilot-ga-example",
+  "version": "1.0.0",
+  "description": "A minimal example of how to use testpilot-ga from within a WebExtension.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=dev webpack",
+    "build_production": "NODE_ENV=production webpack"
+  },
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "webpack": "^2.3.2"
+  },
+  "dependencies": {
+    "testpilot-ga": "^0.1.0"
+  }
+}

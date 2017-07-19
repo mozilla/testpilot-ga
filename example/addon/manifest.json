@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "testpilot-ga example",
+    "version": "1.0.0",
+    "description": "A minimal example of how to use testpilot-ga from within a WebExtension.",
+    "icons": {
+        "32": "icons/leftpad-32.png"
+    },
+    "browser_action": {
+        "default_icon": "icons/testpilot-ga-32.png",
+        "default_title": "testpilot-ga example",
+        "default_popup": "popup/example.html",
+        "browser_style": true
+    },
+    "background": {
+        "scripts": ["background_scripts/index.js"]
+    }
+}

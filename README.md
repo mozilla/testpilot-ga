@@ -6,7 +6,7 @@ Test Pilot.
 ## Table of contents
 
 - [API Documentation](docs/api.md)
-- [Development](docs/development.md)
+- [Example WebExtension](example)
 - [License](LICENSE)
 - [Code of conduct](docs/CODE_OF_CONDUCT.md)
 

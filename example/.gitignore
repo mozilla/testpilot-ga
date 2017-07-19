@@ -1,0 +1,4 @@
+addon/background_scripts/index.js
+addon/popup/index.js
+node_modules
+package-lock.json
