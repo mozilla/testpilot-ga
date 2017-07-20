@@ -1,4 +1,15 @@
+const CHANNELS = {
+  FIREFOX_NIGHTLY: "nightly",
+  FIREFOX_AURORA: "release",
+  FIREFOX_ESR: "esr",
+  FIREFOX_ESR_NEXT: "esr",
+  LATEST_FIREFOX_DEVEL_VERSION: "developer",
+  LATEST_FIREFOX_RELEASED_DEVEL_VERSION: "developer",
+  LATEST_FIREFOX_VERSION: "release"
+};
 const LOCALSTORAGE_CID = "testpilot_ga__cid";
+const PRODUCT_DETAILS_URL =
+  "https://product-details.mozilla.org/1.0/firefox_versions.json";
 
 export default class TestPilotGA {
   static defaultOptions = {
@@ -6,6 +17,7 @@ export default class TestPilotGA {
     aiid: "testpilot",
     aip: "1",
     av: null,
+    cd20: null,
     ds: "addon",
     t: "event",
     uid: null,
@@ -19,7 +31,61 @@ export default class TestPilotGA {
   constructor(options) {
     this.debug = options.debug || false;
     this.setOptions(options);
+    this.getChannel();
     this.validateOptions();
+  }
+
+  getChannel() {
+    if (typeof browser !== "undefined") {
+      Promise.all([
+        this.getProductDetails(),
+        browser.runtime.getBrowserInfo()
+      ]).then(([productDetails, browserInfo]) => {
+        const versionMap = this.getVersionMap(productDetails);
+        this.cd20 = this.getChannelConstant(browserInfo, versionMap);
+      });
+    }
+  }
+
+  getVersionMap(productDetails) {
+    const versionMap = {};
+    Object.entries(productDetails).forEach(([key, value]) => {
+      if (value && value.length) {
+        versionMap[value] = key;
+      }
+      const abbreviated = value.match(/^[^a-z]+/);
+      if (abbreviated && abbreviated.length) {
+        versionMap[abbreviated[0]] = key;
+      }
+    });
+    return versionMap;
+  }
+
+  getChannelConstant(browserInfo, versionMap) {
+    return browserInfo &&
+    browserInfo.version &&
+    versionMap.hasOwnProperty(browserInfo.version) &&
+    CHANNELS.hasOwnProperty(versionMap[browserInfo.version])
+      ? CHANNELS[versionMap[browserInfo.version]]
+      : "other";
+  }
+
+  getProductDetails() {
+    return new Promise((resolve, reject) => {
+      const req = new window.XMLHttpRequest();
+      req.open("GET", PRODUCT_DETAILS_URL);
+      req.onload = function() {
+        if (req.status < 400) {
+          resolve(JSON.parse(req.response));
+        } else {
+          reject(req, Error(req.statusText));
+        }
+      };
+      req.onerror = function() {
+        reject(req, Error("Network Error"));
+      };
+      req.send();
+    });
   }
 
   setOptions(options) {
@@ -59,9 +125,23 @@ export default class TestPilotGA {
   }
 
   getParams(eventParams) {
-    const { an, aid, aiid, aip, av, ds, t, tid, uid, v, xid, xvar } = this;
+    const {
+      an,
+      aid,
+      aiid,
+      aip,
+      av,
+      cd20,
+      ds,
+      t,
+      tid,
+      uid,
+      v,
+      xid,
+      xvar
+    } = this;
     const params = Object.assign(
-      { an, aid, aiid, aip, av, ds, t, tid, uid, v, xid, xvar },
+      { an, aid, aiid, aip, av, cd20, ds, t, tid, uid, v, xid, xvar },
       {
         cid: this.getCID(),
         ua: navigator.userAgent,
@@ -104,7 +184,7 @@ export default class TestPilotGA {
     const requestUri = this.requestURI();
     return new Promise((resolve, reject) => {
       if (navigator.doNotTrack === "1") {
-        reject(null, Error("Metrics aborted due to DNT."));
+        reject("Metrics not sent due to DNT.");
       } else {
         const req = new window.XMLHttpRequest();
         req.open("POST", requestUri);
@@ -112,11 +192,11 @@ export default class TestPilotGA {
           if (req.status < 400) {
             resolve(req);
           } else {
-            reject(req, Error(req.statusText));
+            reject(`Request error: ${req.statusText}`);
           }
         };
         req.onerror = function() {
-          reject(req, Error("Network Error"));
+          reject(`Request error: ${req.status}`);
         };
         req.send(requestBody);
       }
