@@ -19,8 +19,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       cd1: message.cd1,
       cm1: message.cm1
     })
-    .then(response => {
-      console.log("Event succeeded: ", response);
+    .then(() => {
+      console.log(`Event succeeded: '${message.ec}' '${message.ea}'`);
     })
     .catch(msg => {
       console.error("Event failed: ", msg);
