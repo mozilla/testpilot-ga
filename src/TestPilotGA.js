@@ -170,7 +170,11 @@ export default class TestPilotGA {
   }
 
   requestBody(eventParams) {
-    return this.serializeObject(this.getParams(eventParams));
+    const allParams = this.getParams(eventParams);
+    return {
+      allParams,
+      requestBody: this.serializeObject(allParams)
+    };
   }
 
   requestURI() {
@@ -180,7 +184,8 @@ export default class TestPilotGA {
 
   sendEvent(ec, ea, params = {}) {
     const eventParams = Object.assign({ ec, ea }, params);
-    const requestBody = this.requestBody(eventParams);
+    const { allParams, requestBody } = this.requestBody(eventParams);
+    console.log(`Sending '${ec}' '${ea}':`, allParams);
     const requestUri = this.requestURI();
     return new Promise((resolve, reject) => {
       if (navigator.doNotTrack === "1") {
