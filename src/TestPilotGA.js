@@ -17,6 +17,7 @@ export default class TestPilotGA {
     aiid: "testpilot",
     aip: "1",
     av: null,
+    cd19: "dev",
     cd20: null,
     ds: "addon",
     t: "event",
@@ -131,6 +132,7 @@ export default class TestPilotGA {
       aiid,
       aip,
       av,
+      cd19,
       cd20,
       ds,
       t,
@@ -141,7 +143,7 @@ export default class TestPilotGA {
       xvar
     } = this;
     const params = Object.assign(
-      { an, aid, aiid, aip, av, cd20, ds, t, tid, uid, v, xid, xvar },
+      { an, aid, aiid, aip, av, cd19, cd20, ds, t, tid, uid, v, xid, xvar },
       {
         cid: this.getCID(),
         ua: navigator.userAgent,
