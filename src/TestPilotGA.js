@@ -35,6 +35,7 @@ export default class TestPilotGA {
       return accum;
     }, []);
     if (missingOptions.length) {
+      // eslint-disable-next-line no-console
       console.error(`Missing required options: ${missingOptions.join(", ")}`);
     }
   }
