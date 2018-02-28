@@ -9,6 +9,7 @@ const analytics = new TestPilotGA({
   tid: "UA-71632928-4"
 });
 
+// eslint-disable-next-line no-unused-vars
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   analytics
     .sendEvent(message.ec, message.ea, {
