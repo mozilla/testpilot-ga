@@ -1,3 +1,5 @@
+/* global browser */
+
 const CHANNELS = {
   FIREFOX_NIGHTLY: "nightly",
   FIREFOX_AURORA: "release",
@@ -90,7 +92,6 @@ export default class TestPilotGA {
   }
 
   setOptions(options) {
-    const x = 1;
     const allOptions = Object.assign({}, TestPilotGA.defaultOptions, options);
     Object.entries(allOptions).forEach(([key, value]) => (this[key] = value));
   }
@@ -103,6 +104,7 @@ export default class TestPilotGA {
       return accum;
     }, []);
     if (missingOptions.length) {
+      // eslint-disable-next-line no-console
       console.error(`Missing required options: ${missingOptions.join(", ")}`);
     }
   }
@@ -187,6 +189,7 @@ export default class TestPilotGA {
   sendEvent(ec, ea, params = {}) {
     const eventParams = Object.assign({ ec, ea }, params);
     const { allParams, requestBody } = this.requestBody(eventParams);
+    // eslint-disable-next-line no-console
     console.log(`Sending '${ec}' '${ea}':`, allParams);
     const requestUri = this.requestURI();
     return new Promise((resolve, reject) => {
