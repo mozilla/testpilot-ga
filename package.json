@@ -3,7 +3,10 @@
   "version": "0.3.0",
   "description": "A library for event-driven data collection with Google Analytics for Firefox Test Pilot.",
   "main": "dist/index.js",
-  "files": "dist",
+  "files": [
+    "dist"
+  ],
+  "author": "Mozilla (https://mozilla.org/)",
   "repository": "https://github.com/mozilla/testpilot-ga",
   "license": "MPL-2.0",
   "devDependencies": {
