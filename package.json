@@ -9,22 +9,26 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "eslint": "^4.2.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.2",
     "prettier": "^1.5.3"
   },
   "scripts": {
     "build": "mkdir -p dist && babel src/TestPilotGA.js --out-file dist/index.js",
+    "lint": "eslint src",
     "precommit": "lint-staged && npm run build",
     "publish": "npm run build && npm publish"
   },
   "lint-staged": {
     "*.js": [
       "prettier --write",
+      "eslint",
       "git add"
     ]
   }
