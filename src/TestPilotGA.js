@@ -64,9 +64,9 @@ export default class TestPilotGA {
 
   getChannelConstant(browserInfo, versionMap) {
     return browserInfo &&
-    browserInfo.version &&
-    versionMap.hasOwnProperty(browserInfo.version) &&
-    CHANNELS.hasOwnProperty(versionMap[browserInfo.version])
+      browserInfo.version &&
+      versionMap.hasOwnProperty(browserInfo.version) &&
+      CHANNELS.hasOwnProperty(versionMap[browserInfo.version])
       ? CHANNELS[versionMap[browserInfo.version]]
       : "other";
   }
@@ -94,7 +94,7 @@ export default class TestPilotGA {
     Object.entries(allOptions).forEach(([key, value]) => (this[key] = value));
   }
 
-  validateOptions(options) {
+  validateOptions() {
     const missingOptions = TestPilotGA.requiredOptions.reduce((accum, opt) => {
       if (!this.hasOwnProperty(opt)) {
         accum.push(opt);
@@ -110,9 +110,10 @@ export default class TestPilotGA {
   makeUUID() {
     // From https://stackoverflow.com/a/2117523
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-      (c ^
-        (crypto.getRandomValues(new Uint8Array(1))[0] &
-          (15 >> (c / 4)))).toString(16)
+      (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
     );
   }
 
@@ -187,7 +188,7 @@ export default class TestPilotGA {
   sendEvent(ec, ea, params = {}) {
     const eventParams = Object.assign({ ec, ea }, params);
     const { allParams, requestBody } = this.requestBody(eventParams);
-    console.log(`Sending '${ec}' '${ea}':`, allParams);
+    console.log(`Sending '${ec}' '${ea}':`, allParams); // eslint-disable-line no-console
     const requestUri = this.requestURI();
     return new Promise((resolve, reject) => {
       if (navigator.doNotTrack === "1") {
