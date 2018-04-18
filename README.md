@@ -54,8 +54,8 @@ A library for event-driven data collection with Google Analytics for [Firefox Te
      .then(response => {
        console.log('Event successfully sent', response)
      })
-     .catch((response, err) => {
-       console.error('Event failed while sending', response, err)
+     .catch(err => {
+       console.error('Event failed while sending', err)
      });
    ```
 
